@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AnonChat — Анонимный мессенджер</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <main class="app" id="app">
+      <section class="card login-card" id="loginCard">
+        <img class="hero" src="assets/chat-hero.svg" alt="Иллюстрация чата" />
+        <h1>AnonChat ✨</h1>
+        <p class="subtitle">Анонимный мессенджер в реальном времени</p>
+
+        <label>
+          Ваш ник
+          <input id="nameInput" type="text" maxlength="30" placeholder="Например, NightFox" />
+        </label>
+
+        <label>
+          Комната
+          <div class="room-row">
+            <input id="roomInput" type="text" maxlength="40" placeholder="Например, design-team" />
+            <button id="randomRoomBtn" type="button" class="btn ghost">🎲 Случайно</button>
+          </div>
+        </label>
+
+        <button id="joinBtn" class="btn primary">🚀 Войти в чат</button>
+      </section>
+
+      <section class="card chat-card hidden" id="chatCard">
+        <header class="chat-header">
+          <div>
+            <h2 id="roomTitle">Комната</h2>
+            <p id="statusLine" class="status">Подключение…</p>
+          </div>
+          <div class="header-actions">
+            <button id="copyLinkBtn" class="btn ghost">🔗 Копировать ссылку</button>
+          </div>
+        </header>
+
+        <div class="chat-grid">
+          <aside class="users-panel">
+            <h3>Участники</h3>
+            <ul id="usersList"></ul>
+          </aside>
+
+          <section class="messages-panel">
+            <div id="messages" class="messages"></div>
+            <div class="emoji-bar" id="emojiBar">
+              <button type="button" class="emoji-btn" data-emoji="👍">👍</button>
+              <button type="button" class="emoji-btn" data-emoji="🔥">🔥</button>
+              <button type="button" class="emoji-btn" data-emoji="😂">😂</button>
+              <button type="button" class="emoji-btn" data-emoji="❤️">❤️</button>
+              <button type="button" class="emoji-btn" data-emoji="🚀">🚀</button>
+            </div>
+            <form id="messageForm" class="message-form">
+              <input id="messageInput" type="text" maxlength="800" placeholder="Введите сообщение..." />
+              <button class="btn primary" type="submit">Отправить</button>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
