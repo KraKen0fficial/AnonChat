@@ -19,7 +19,7 @@
     <main class="app" id="app">
       <section class="card login-card" id="loginCard">
         <img class="hero" src="assets/chat-hero.svg" alt="Иллюстрация чата" />
-        <h1>AnonChat ✨</h1>
+        <h1>AnonChat</h1>
         <p class="subtitle">Анонимный мессенджер в реальном времени</p>
 
         <label>
@@ -31,21 +31,21 @@
           Комната
           <div class="room-row">
             <input id="roomInput" type="text" maxlength="40" placeholder="Например, design-team" />
-            <button id="randomRoomBtn" type="button" class="btn ghost">🎲 Случайно</button>
+            <button id="randomRoomBtn" type="button" class="btn ghost icon-btn"><img class="icon" src="assets/icons/dice.svg" alt="" />Случайно</button>
           </div>
         </label>
 
-        <button id="joinBtn" class="btn primary">🚀 Войти в чат</button>
+        <button id="joinBtn" class="btn primary icon-btn"><img class="icon" src="assets/icons/rocket.svg" alt="" />Войти в чат</button>
       </section>
 
       <section class="card chat-card hidden" id="chatCard">
         <header class="chat-header">
           <div>
             <h2 id="roomTitle">Комната</h2>
-            <p id="statusLine" class="status">Подключение…</p>
+            <p id="statusLine" class="status"><span class="status-dot"></span>Подключение…</p>
           </div>
           <div class="header-actions">
-            <button id="copyLinkBtn" class="btn ghost">🔗 Копировать ссылку</button>
+            <button id="copyLinkBtn" class="btn ghost icon-btn"><img class="icon" src="assets/icons/link.svg" alt="" />Копировать ссылку</button>
           </div>
         </header>
 
@@ -58,11 +58,11 @@
           <section class="messages-panel">
             <div id="messages" class="messages"></div>
             <div class="emoji-bar" id="emojiBar">
-              <button type="button" class="emoji-btn" data-emoji="👍">👍</button>
-              <button type="button" class="emoji-btn" data-emoji="🔥">🔥</button>
-              <button type="button" class="emoji-btn" data-emoji="😂">😂</button>
-              <button type="button" class="emoji-btn" data-emoji="❤️">❤️</button>
-              <button type="button" class="emoji-btn" data-emoji="🚀">🚀</button>
+              <button type="button" class="emoji-btn" data-insert=":like:"><img class="icon" src="assets/icons/thumb.svg" alt="like" /></button>
+              <button type="button" class="emoji-btn" data-insert=":wow:"><img class="icon" src="assets/icons/bolt.svg" alt="wow" /></button>
+              <button type="button" class="emoji-btn" data-insert=":smile:"><img class="icon" src="assets/icons/smile.svg" alt="smile" /></button>
+              <button type="button" class="emoji-btn" data-insert=":love:"><img class="icon" src="assets/icons/heart.svg" alt="love" /></button>
+              <button type="button" class="emoji-btn" data-insert=":send:"><img class="icon" src="assets/icons/send.svg" alt="send" /></button>
             </div>
             <form id="messageForm" class="message-form">
               <input id="messageInput" type="text" maxlength="800" placeholder="Введите сообщение..." />

@@ -15,7 +15,6 @@ const emojiBar = document.getElementById('emojiBar');
 
 const randomAnimal = ['Fox', 'Wolf', 'Cat', 'Panda', 'Raven', 'Koala', 'Otter'];
 const randomAdj = ['Silent', 'Neon', 'Night', 'Pixel', 'Ghost', 'Crystal', 'Shadow'];
-const userEmojis = ['🦊', '🐺', '🐱', '🐼', '🐦', '🐨', '🦦', '🐯', '🦄'];
 
 let socket;
 let currentRoom = '';
@@ -32,17 +31,30 @@ function randomRoomCode() {
   return `room-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-function setStatus(text) {
-  statusLine.textContent = text;
+function setStatus(text, isOnline = false) {
+  statusLine.classList.toggle('online', isOnline);
+  statusLine.lastChild.textContent = text;
 }
 
 function safeText(value) {
   return String(value ?? '');
 }
 
-function getUserEmoji(seed) {
-  const idx = [...safeText(seed)].reduce((acc, ch) => acc + ch.charCodeAt(0), 0) % userEmojis.length;
-  return userEmojis[idx];
+function avatarMeta(seed) {
+  const text = safeText(seed);
+  const idx = [...text].reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const color = `hsl(${idx % 360}deg 72% 55%)`;
+  const letter = text.slice(0, 1).toUpperCase() || 'U';
+  return { color, letter };
+}
+
+function makeBadge(seed) {
+  const meta = avatarMeta(seed);
+  const badge = document.createElement('span');
+  badge.className = 'user-badge';
+  badge.style.background = meta.color;
+  badge.textContent = meta.letter;
+  return badge;
 }
 
 function addMessage({ type, username: sender, text, ts, id }) {
@@ -58,7 +70,10 @@ function addMessage({ type, username: sender, text, ts, id }) {
     const time = new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const meta = document.createElement('div');
     meta.className = 'meta';
-    meta.textContent = `${getUserEmoji(id)} ${safeText(sender)} • ${time}`;
+    meta.appendChild(makeBadge(id));
+    const metaText = document.createElement('span');
+    metaText.textContent = `${safeText(sender)} • ${time}`;
+    meta.appendChild(metaText);
 
     const body = document.createElement('div');
     body.textContent = safeText(text);
@@ -75,8 +90,11 @@ function renderUsers(users) {
   usersList.innerHTML = '';
   users.forEach((u) => {
     const li = document.createElement('li');
+    li.appendChild(makeBadge(u.id));
+    const label = document.createElement('span');
     const suffix = u.id === userId ? ' (вы)' : '';
-    li.textContent = `${getUserEmoji(u.id)} ${u.name}${suffix}`;
+    label.textContent = `${u.name}${suffix}`;
+    li.appendChild(label);
     usersList.appendChild(li);
   });
 }
@@ -90,7 +108,7 @@ function connect() {
   socket = new WebSocket(`${protocol}://${location.host}`);
 
   socket.addEventListener('open', () => {
-    setStatus('🟢 Онлайн');
+    setStatus('Онлайн', true);
     joinBtn.disabled = false;
     socket.send(
       JSON.stringify({
@@ -104,7 +122,7 @@ function connect() {
 
   socket.addEventListener('close', () => {
     if (!shouldReconnect) return;
-    setStatus('🟠 Оффлайн, переподключение...');
+    setStatus('Оффлайн, переподключение...', false);
     if (reconnectTimer) clearTimeout(reconnectTimer);
     reconnectTimer = setTimeout(connect, 1500);
   });
@@ -165,8 +183,8 @@ messageForm.addEventListener('submit', (e) => {
 emojiBar.addEventListener('click', (e) => {
   const btn = e.target.closest('.emoji-btn');
   if (!btn) return;
-  const emoji = btn.dataset.emoji || '';
-  messageInput.value = `${messageInput.value}${emoji}`;
+  const insert = btn.dataset.insert || '';
+  messageInput.value = `${messageInput.value}${insert}`;
   messageInput.focus();
 });
 
@@ -176,10 +194,12 @@ copyLinkBtn.addEventListener('click', async () => {
 
   try {
     await navigator.clipboard.writeText(url.toString());
-    copyLinkBtn.textContent = '✅ Скопировано!';
-    setTimeout(() => (copyLinkBtn.textContent = '🔗 Копировать ссылку'), 1200);
+    copyLinkBtn.innerHTML = '<img class="icon" src="assets/icons/check.svg" alt="" />Скопировано';
+    setTimeout(() => {
+      copyLinkBtn.innerHTML = '<img class="icon" src="assets/icons/link.svg" alt="" />Копировать ссылку';
+    }, 1200);
   } catch {
-    copyLinkBtn.textContent = '❌ Ошибка';
+    copyLinkBtn.innerHTML = '<img class="icon" src="assets/icons/error.svg" alt="" />Ошибка';
   }
 });
 

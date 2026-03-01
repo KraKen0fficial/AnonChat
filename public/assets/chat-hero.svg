@@ -6,9 +6,9 @@
   <circle cx="94" cy="82" r="10" fill="#2DD4BF"/>
   <circle cx="330" cy="160" r="10" fill="#7C5CFF"/>
   <circle cx="124" cy="239" r="10" fill="#FF5D8F"/>
-  <text x="120" y="88" fill="white" fill-opacity="0.9" font-size="18" font-family="Inter, sans-serif">Привет 👋</text>
-  <text x="356" y="166" fill="white" fill-opacity="0.9" font-size="18" font-family="Inter, sans-serif">Как дела? 😄</text>
-  <text x="152" y="245" fill="white" fill-opacity="0.9" font-size="18" font-family="Inter, sans-serif">Погнали в анон-чат 🚀</text>
+  <text x="120" y="88" fill="white" fill-opacity="0.9" font-size="18" font-family="Inter, sans-serif">Привет</text>
+  <text x="356" y="166" fill="white" fill-opacity="0.9" font-size="18" font-family="Inter, sans-serif">Как дела?</text>
+  <text x="152" y="245" fill="white" fill-opacity="0.9" font-size="18" font-family="Inter, sans-serif">Погнали в анон-чат</text>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="560" y2="320" gradientUnits="userSpaceOnUse">
       <stop stop-color="#7C5CFF"/>
