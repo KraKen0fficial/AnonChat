@@ -6,6 +6,7 @@ const joinBtn = document.getElementById('joinBtn');
 const randomRoomBtn = document.getElementById('randomRoomBtn');
 const roomTitle = document.getElementById('roomTitle');
 const statusLine = document.getElementById('statusLine');
+const statusText = document.getElementById('statusText');
 const usersList = document.getElementById('usersList');
 const messages = document.getElementById('messages');
 const messageForm = document.getElementById('messageForm');
@@ -33,7 +34,7 @@ function randomRoomCode() {
 
 function setStatus(text, isOnline = false) {
   statusLine.classList.toggle('online', isOnline);
-  statusLine.lastChild.textContent = text;
+  statusText.textContent = text;
 }
 
 function safeText(value) {
