@@ -155,6 +155,16 @@ wss.on('connection', (socket) => {
       currentUser = { id: userId, name: username, socket };
 
       const room = getRoom(roomId);
+
+      const existingUser = room.get(userId);
+      if (existingUser && existingUser.socket !== socket) {
+        try {
+          existingUser.socket.close();
+        } catch {
+          // ignore socket close errors
+        }
+      }
+
       room.set(userId, currentUser);
 
       socket.send(
